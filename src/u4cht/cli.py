@@ -10,6 +10,7 @@ from pathlib import Path
 import click
 
 from . import __version__
+from .extract import strings as strings_extract
 from .extract import tlk as tlk_extract
 
 
@@ -24,7 +25,7 @@ def info() -> None:
     """列出目前實作進度。"""
     click.echo(f"u4cht {__version__}")
     click.echo("Phase 0 骨架 ✅")
-    click.echo("Phase 1 進行中：extract-tlk ✅")
+    click.echo("Phase 1 進行中：extract-tlk ✅  extract-strings ✅")
     click.echo("實作進度：docs/ai_planning/PLAN.md")
 
 
@@ -79,9 +80,51 @@ def extract_tlk(
         click.echo(f"→ {out_report}")
 
 
+@main.command("extract-strings")
+@click.option(
+    "--data-dir",
+    "data_dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    help="包含 `title.exe` 與 `avatar.exe` 的 DOS U4 資料夾。",
+)
+@click.option(
+    "--out",
+    "out_bilingual",
+    required=True,
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="輸出雙語 JSON 路徑。",
+)
+@click.option(
+    "--report",
+    "out_report",
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="（選填）Markdown 報告輸出路徑。",
+)
+def extract_strings(
+    data_dir: Path,
+    out_bilingual: Path,
+    out_report: Path | None,
+) -> None:
+    """抽 `title.exe` / `avatar.exe` stringtable（intro / codex / shrine）為雙語 JSON。"""
+    stats = strings_extract.run_extract(
+        data_dir=data_dir,
+        out_bilingual=out_bilingual,
+        out_report=out_report,
+    )
+    click.echo(f"抽出字串總數：{stats['total']}")
+    for k, v in stats.items():
+        if k == "total":
+            continue
+        click.echo(f"  {k}: {v}")
+    click.echo(f"→ {out_bilingual}")
+    if out_report is not None:
+        click.echo(f"→ {out_report}")
+
+
 # 尚未實作的子指令（僅列於此供追蹤，見 PLAN §3 對照表）：
 # 共用（Phase 1–3）:
-#   extract-strings / extract-hardcoded / extract-vendor
+#   extract-hardcoded / extract-vendor
 #   build-font / build-lookup
 #   platform fmtowns|msx2|amiga|x68000|sms
 # 軌 A（Phase A1+）:
