@@ -1,0 +1,632 @@
+{
+  "_meta": {
+    "sources": [
+      "title.exe",
+      "avatar.exe"
+    ],
+    "mechanism": "u4read_stringtable (xu4 src/u4file.cpp:578)",
+    "total_strings": 114,
+    "note": "en = DOS exe 原文（= H8/codex/shrine hook 的 lookup key）；zh 待填。title.exe 三段為順序讀。vendor 文字不在此（走 Boron module 腳本）。"
+  },
+  "sections": {
+    "intro_questions": {
+      "source": "title.exe @ 0x4424",
+      "desc": "intro.cpp:101 角色創建美德問題（gypsy 抽牌題目）",
+      "count": 28,
+      "entries": [
+        {
+          "idx": 0,
+          "en": "Entrusted to deliver an uncounted purse\nof gold, thou dost meet a poor beggar.\nDost thou A) deliver the gold knowing\nthe Trust in thee was well placed, or\nB) show Compassion, giving the beggar a\ncoin, knowing it won't be missed?",
+          "zh": ""
+        },
+        {
+          "idx": 1,
+          "en": "Thou has been prohibited by thy absent\nLord from joining thy friends in a close\npitched battle. Dost thou A) refrain, so\nthou may Honesty claim obedience, or\nB) show Valor, and aid thy comrades,\nknowing thou may deny it later?",
+          "zh": ""
+        },
+        {
+          "idx": 2,
+          "en": "A merchant owes thy friend money, now\nlong past due.  Thou dost see the same\nmerchant drop a purse of gold. Dost thou\nA) Honestly return the purse intact, or\nB) Justly give thy friend a portion of\nthe gold first?",
+          "zh": ""
+        },
+        {
+          "idx": 3,
+          "en": "Thee and thy friend are valiant but\npenniless warriors.  Thou both go out to\nslay a mighty dragon.  Thy friend thinks\nhe slew it; thee did.  When asked, dost\nthou A) Truthfully claim the gold, or\nB) Allow thy friend the large reward?",
+          "zh": ""
+        },
+        {
+          "idx": 4,
+          "en": "Thou art sworn to protect thy Lord at\nany cost, yet thou know he hath\ncommitted a crime.  Authorities ask thee\nof the affair.  Dost thou A) break thine\noath by Honestly speaking, or B) uphold\nHonor by silently keeping thine oath?",
+          "zh": ""
+        },
+        {
+          "idx": 5,
+          "en": "Thy friend seeks admittance to thy\nSpiritual order. Thou art asked to vouch\nfor his purity of Spirit, of which thou\nart unsure.  Dost thou A) Honestly\nexpress thy doubt, or B) Vouch for him\nhoping for his Spiritual improvement?",
+          "zh": ""
+        },
+        {
+          "idx": 6,
+          "en": "Thy Lord mistakenly believes he slew a\ndragon.  Thou hast proof that thy lance\nfelled the beast.  When asked, dost thou\nA) Honestly claim the kill and the\nprize, or B) Humbly permit thy Lord his\nbelief?",
+          "zh": ""
+        },
+        {
+          "idx": 7,
+          "en": "Thou dost manage to disarm thy mortal\nenemy in a duel.  He is at thy mercy.\nDost thou A) show Compassion by\npermitting him to yield, or B) slay him\nas expected of a Valiant duelist?",
+          "zh": ""
+        },
+        {
+          "idx": 8,
+          "en": "After 20 years thou hast found the\nslayer of thy best friends.  The villain\nproves to be a man who provides the sole\nsupport for a young girl.  Dost thou\nA) spare him in Compassion for the girl,\nor B) slay him in the name of Justice?",
+          "zh": ""
+        },
+        {
+          "idx": 9,
+          "en": "Thee and thy friends have been routed\nand ordered to retreat.  In defiance of\nthy orders, dost thou A) stop in\nCompassion to aid a wounded companion,\nor B) Sacrifice thyself to slow the\npursuing enemy, so others may escape?",
+          "zh": ""
+        },
+        {
+          "idx": 10,
+          "en": "Thou art sworn to uphold a Lord who\nparticipates in the forbidden torture of\nprisoners.  Each night their cries of\npain reach thee.  Dost thou A) show\nCompassion by reporting the deeds, or\nB) Honor thy oath and ignore the deeds?",
+          "zh": ""
+        },
+        {
+          "idx": 11,
+          "en": "Thou hast been taught to preserve all\nlife as sacred. A man lies fatally stung\nby a venomous serpent.  He pleads for a\nmerciful death.  Dost thou A) show\nCompassion and end his pain, or B) heed\nthy Spiritual beliefs and refuse?",
+          "zh": ""
+        },
+        {
+          "idx": 12,
+          "en": "As one of the King's Guard, thy Captain\nhas asked that one amongst you visit\na hospital to cheer the children with\ntales of thy valiant deeds.  Dost thou\nA) Show thy Compassion and play the\nbraggart, or B) Humbly let another go?",
+          "zh": ""
+        },
+        {
+          "idx": 13,
+          "en": "Thou hast been sent to secure a needed\ntreaty with a distant Lord.  Thy host is\nagreeable to the proposal but insults\nthy country at dinner.  Dost thou\nA) Valiantly bear the slurs, or\nB) Justly rise and demand an apology?",
+          "zh": ""
+        },
+        {
+          "idx": 14,
+          "en": "A mighty knight accosts thee and demands\nthy food.  Dost thou A) Valiantly refuse\nand engage the knight, or B) Sacrifice\nthy food unto the hungry knight?",
+          "zh": ""
+        },
+        {
+          "idx": 15,
+          "en": "During battle thou art ordered to guard\nthy commander's empty tent.  The battle\ngoes poorly and thou dost yearn to aid\nthy fellows.  Dost thou A) Valiantly\nenter the battle to aid thy companions,\nor B) Honor thy post as guard?",
+          "zh": ""
+        },
+        {
+          "idx": 16,
+          "en": "A local bully pushes for a fight.  Dost\nthou A) Valiantly trounce the rogue, or\nB) Decline, knowing in thy Spirit that\nno lasting good will come of it?",
+          "zh": ""
+        },
+        {
+          "idx": 17,
+          "en": "Although a teacher of music, thou art\na skillful wrestler.  Thou hast been\nasked to fight in a local championship.\nDost thou A) accept the invitation and\nValiantly fight to win, or B) Humbly\ndecline knowing thou art sure to win?",
+          "zh": ""
+        },
+        {
+          "idx": 18,
+          "en": "During a pitched battle, thou dost see\na fellow desert his post, endangering\nmany.  As he flees, he is set upon by\nseveral enemies. Dost thou A) Justly let\nhim fight alone, or B) Risk Sacrificing\nthine own life to aid him?",
+          "zh": ""
+        },
+        {
+          "idx": 19,
+          "en": "Thou hast sworn to do thy Lord's\nbidding in all.  He covets a piece of\nland and orders the owner removed.  Dost\nthou A) serve Justice refusing to act,\nthus being disgraced, or B) Honor thine\noath and unfairly evict the landowner?",
+          "zh": ""
+        },
+        {
+          "idx": 20,
+          "en": "Thou dost believe that virtue resides\nin all people.  Thou dost see a rogue\nsteal from thy Lord.  Dost thou A) call\nhim to Justice, or B) personally try to\nsway him back to the Spiritual path of\ngood?",
+          "zh": ""
+        },
+        {
+          "idx": 21,
+          "en": "Unwitnessed, thou hast slain a great\ndragon in self defense.  A poor warrior\nclaims the offered reward.  Dost thou\nA) Justly step forward to claim the\nreward, or B) Humbly go about life,\nsecure in thy self esteem?",
+          "zh": ""
+        },
+        {
+          "idx": 22,
+          "en": "Thou art a bounty hunter sworn to return\nan alleged murder.  After his capture\nthou believest him to be innocent.  Dost\nthou A) Sacrifice thy sizable bounty\nfor thy belief, or B) Honor thy oath to\nreturn him as thou hast promised?",
+          "zh": ""
+        },
+        {
+          "idx": 23,
+          "en": "Thou hast spent thy life in charitable\nand righteous work.  Thine uncle the\ninnkeeper lies ill and asks you to take\nover his tavern.  Dost thou A) Sacrifice\nthy life of purity to aid thy kin, or\nB) decline & follow thy Spirit's call?",
+          "zh": ""
+        },
+        {
+          "idx": 24,
+          "en": "Thou art an elderly, wealthy eccentric.\nThy end is near. Dost thou A) donate all\nthy wealth to feed hundreds of starving\nchildren, and receive public adulation,\nor B) Humbly live out thy life, willing\nthy fortune to thy heirs?",
+          "zh": ""
+        },
+        {
+          "idx": 25,
+          "en": "In thy youth thou pledged to marry thy\nsweetheart.  Now thou art on a sacred\nquest in distant lands.  Thy sweetheart\nasks thee to keep thy vow.  Dost thou\nA) Honor thy pledge to wed, or B) follow\nthy Spiritual crusade?",
+          "zh": ""
+        },
+        {
+          "idx": 26,
+          "en": "Thou art at a crossroads in thy life.\nDost thou A) Choose the Honorable life\nof a Paladin, striving for Truth and\nCourage, or B) Choose the Humble life\nof a Shepherd, and a world of simplicity\nand peace?",
+          "zh": ""
+        },
+        {
+          "idx": 27,
+          "en": "Thy parents wish thee to become an\napprentice. Two positions are available.\nDost thou A) Become an acolyte in the\nSpiritual order, or B) Become an\nassistant to a humble village cobbler?",
+          "zh": ""
+        }
+      ]
+    },
+    "intro_text": {
+      "source": "title.exe @ continue",
+      "desc": "intro.cpp:102 開場故事字幕",
+      "count": 24,
+      "entries": [
+        {
+          "idx": 0,
+          "en": "  The day is warm, yet there is a\ncooling breeze.  The latest in a series\nof personal crises seems insurmountable.\nYou are being pulled apart in all\ndirections.",
+          "zh": ""
+        },
+        {
+          "idx": 1,
+          "en": "Yet this afternoon walk in the country-\nside slowly brings relaxation to your\nharried mind.  The soil and strain of\nmodern high-tech living begins to wash\noff in layers. That willow tree near the\nstream looks comfortable and inviting.",
+          "zh": ""
+        },
+        {
+          "idx": 2,
+          "en": "The buzz of dragonflies and the whisper\nof the willow's swaying branches bring\na deep peace.  Searching inward for\ntranquility and happiness, you close\nyour eyes.",
+          "zh": ""
+        },
+        {
+          "idx": 3,
+          "en": "A high-pitched cascading sound like\ncrystal wind-chimes impinges on your\nfloating awareness.  As you open your\neyes, you see a shimmering blueness rise\nfrom the ground.  The sound seems to be\nemanating from this glowing portal.",
+          "zh": ""
+        },
+        {
+          "idx": 4,
+          "en": "It is difficult to look at the blueness.\nLight seems to bend and distort around\nit, while the sound waves become so\nintense, they appear to become visible.",
+          "zh": ""
+        },
+        {
+          "idx": 5,
+          "en": "The portal hangs there for a moment;\nthen, with the rush of an imploding\nvacuum, it sinks into the ground.\nSomething remains suspended in mid-air\nfor a moment before falling to earth\nwith a heavy thud.",
+          "zh": ""
+        },
+        {
+          "idx": 6,
+          "en": "Somewhat shaken by this vision, you\nrise to your feet to investigate.  A\ncrude circle of stones surrounds the\nspot where the portal appeared. There is\nsomething glinting in the grass.",
+          "zh": ""
+        },
+        {
+          "idx": 7,
+          "en": "You pick up an amulet shaped like a\ncross with a loop at the top.  It is an\nAnkh, the sacred symbol of life and\nrebirth.  But this could not have made\nthe thud, so you look again and find\na large book wrapped in thick cloth!",
+          "zh": ""
+        },
+        {
+          "idx": 8,
+          "en": "With trembling hands you unwrap the\nbook.  Behold, the cloth is a map, and\nwithin lies not one book, but two.  The\nmap is of a land strange to you, and the\nstyle speaks of ancient cartography.",
+          "zh": ""
+        },
+        {
+          "idx": 9,
+          "en": "The script on the cover of the first\nbook is arcane but readable.  The title\nis:\n        The History of Britannia\n               as told by\n            Kyle the Younger",
+          "zh": ""
+        },
+        {
+          "idx": 10,
+          "en": "The other book is disturbing to look at.\nIts small cover appears to be fashioned\nout of some sort of leathery hide, but\nfrom what creature is uncertain.  The\nreddish-black skin radiates an intense\naura suggestive of ancient power.",
+          "zh": ""
+        },
+        {
+          "idx": 11,
+          "en": "The tongue of the title is beyond your\nken.  You dare not open the book and\ndisturb whatever sleeps within.  You\ndecide to peruse the History.  Settling\nback under the willow tree, you open the\nbook.",
+          "zh": ""
+        },
+        {
+          "idx": 12,
+          "en": "\n\n    (You read the Book of History)",
+          "zh": ""
+        },
+        {
+          "idx": 13,
+          "en": "\n\n(No, really! Read the Book of History!)",
+          "zh": ""
+        },
+        {
+          "idx": 14,
+          "en": "Closing the book, you again pick up\nthe Ankh.  As you hold it, you begin to\nhear a hauntingly familiar, lute-like\nsound wafting over a nearby hill.  Still\nclutching the strange artifacts, you\nrise unbidden and climb the slope.",
+          "zh": ""
+        },
+        {
+          "idx": 15,
+          "en": "In the valley below you see what appears\nto be a fair.  It seems strange that you\ncame that way earlier and noticed\nnothing.  As you mull this over, your\nfeet carry you down towards the site.",
+          "zh": ""
+        },
+        {
+          "idx": 16,
+          "en": "This is no ordinary travelling\ncarnival, but a Renaissance Fair.  The\npennants on the tent tops blow briskly\nin the late afternoon breeze.",
+          "zh": ""
+        },
+        {
+          "idx": 17,
+          "en": "The ticket taker at the RenFair's gate\nstarts to ask you for money, but upon\nspotting your Ankh says, \"Welcome,\nfriend.  Enter in peace and find your\npath.\"",
+          "zh": ""
+        },
+        {
+          "idx": 18,
+          "en": "The music continues to pull you\nforward amongst the merchants and\nvendors.  Glimpses of fabulous treasures\ncan be seen in some of the shadowy\nbooths.",
+          "zh": ""
+        },
+        {
+          "idx": 19,
+          "en": "These people are very happy.  They seem\nto glow with an inner light.  Some look\nup as you pass and smile, but you cannot\nstop - the music compels you to move\nonward through the crowd.",
+          "zh": ""
+        },
+        {
+          "idx": 20,
+          "en": "Through the gathering dusk you see a\nsecluded gypsy wagon sitting off in the\nwoods.  The music seems to emanate from\nthe wagon.  As you draw near, a woman's\nvoice weaves into the music, saying:\n\"You may approach, O seeker.\"",
+          "zh": ""
+        },
+        {
+          "idx": 21,
+          "en": "You enter to find an old gypsy sitting\nin a small curtained room.  She wears an\nAnkh around her neck. In front of her is\na round table covered in deep green\nvelvet.  The room smells so heavily of\nincense that you feel dizzy.",
+          "zh": ""
+        },
+        {
+          "idx": 22,
+          "en": "Seeing the Ankh, the ancient gypsy\nsmiles and warns you never to part with\nit.  \"We have been waiting such a long\ntime, but at last you have come.  Sit\nhere and I shall read the path of your\nfuture.\"",
+          "zh": ""
+        },
+        {
+          "idx": 23,
+          "en": "Upon the table she places a curious\nwooden object like an abacus but without\nbeads.  In her hands she holds eight\nunusual cards.  \"Let us begin the\ncasting.\"",
+          "zh": ""
+        }
+      ]
+    },
+    "intro_gypsy": {
+      "source": "title.exe @ continue",
+      "desc": "intro.cpp:103 gypsy 抽牌旁白",
+      "count": 15,
+      "entries": [
+        {
+          "idx": 0,
+          "en": "The gypsy places the first two cards\n",
+          "zh": ""
+        },
+        {
+          "idx": 1,
+          "en": "The gypsy places two more of the cards\n",
+          "zh": ""
+        },
+        {
+          "idx": 2,
+          "en": "The gypsy places the last two cards\n",
+          "zh": ""
+        },
+        {
+          "idx": 3,
+          "en": "upon the table.  They are the cards of\n",
+          "zh": ""
+        },
+        {
+          "idx": 4,
+          "en": "Honesty",
+          "zh": ""
+        },
+        {
+          "idx": 5,
+          "en": "Compassion",
+          "zh": ""
+        },
+        {
+          "idx": 6,
+          "en": "Valor",
+          "zh": ""
+        },
+        {
+          "idx": 7,
+          "en": "Justice",
+          "zh": ""
+        },
+        {
+          "idx": 8,
+          "en": "Sacrifice",
+          "zh": ""
+        },
+        {
+          "idx": 9,
+          "en": "Honor",
+          "zh": ""
+        },
+        {
+          "idx": 10,
+          "en": "Spirituality",
+          "zh": ""
+        },
+        {
+          "idx": 11,
+          "en": "Humility",
+          "zh": ""
+        },
+        {
+          "idx": 12,
+          "en": "",
+          "zh": ""
+        },
+        {
+          "idx": 13,
+          "en": "With the final choice, the incense\nswells up around you.  The gypsy speaks\nas if from a great distance, her voice\ngrowing fainter with each word:\n\"So be it!  Thy path is chosen!\"",
+          "zh": ""
+        },
+        {
+          "idx": 14,
+          "en": "There is a moment of intense, wrenching\nvertigo.  As you open your eyes, a\nvoice whispers within your mind, \"Seek\nthe counsel of thy sovereign.\"  After a\nmoment, the spinning subsides, and you\nopen your eyes to...",
+          "zh": ""
+        }
+      ]
+    },
+    "codex_virtue_questions": {
+      "source": "avatar.exe @ 0xfc7b",
+      "desc": "codex.cpp:43 知識寶典美德問答",
+      "count": 11,
+      "entries": [
+        {
+          "idx": 0,
+          "en": "What dost thou possess if all may rely upon your every word?",
+          "zh": ""
+        },
+        {
+          "idx": 1,
+          "en": "What quality compels one to share in the journeys of others?",
+          "zh": ""
+        },
+        {
+          "idx": 2,
+          "en": "What answers when great deeds are called for?",
+          "zh": ""
+        },
+        {
+          "idx": 3,
+          "en": "What should be the same for Lord and Serf alike?",
+          "zh": ""
+        },
+        {
+          "idx": 4,
+          "en": "What is loath to place the self above aught else?",
+          "zh": ""
+        },
+        {
+          "idx": 5,
+          "en": "What shirks no duty?",
+          "zh": ""
+        },
+        {
+          "idx": 6,
+          "en": "What, in knowing the true self, knows all?",
+          "zh": ""
+        },
+        {
+          "idx": 7,
+          "en": "What is that which Serfs are born with but Nobles must strive to obtain?",
+          "zh": ""
+        },
+        {
+          "idx": 8,
+          "en": "If all else is imaginary, this is real...",
+          "zh": ""
+        },
+        {
+          "idx": 9,
+          "en": "What plunges to the depths, while soaring on the heights?",
+          "zh": ""
+        },
+        {
+          "idx": 10,
+          "en": "What turns not away from any peril?",
+          "zh": ""
+        }
+      ]
+    },
+    "endgame_text1": {
+      "source": "avatar.exe @ 0xfee4",
+      "desc": "codex.cpp:44 結局文字 1",
+      "count": 7,
+      "entries": [
+        {
+          "idx": 0,
+          "en": "The boundless knowledge of the Codex of Ultimate Wisdom is revealed unto thee.",
+          "zh": ""
+        },
+        {
+          "idx": 1,
+          "en": "\n\nThe voice says: Thou hast proven thyself to be truly good in nature.",
+          "zh": ""
+        },
+        {
+          "idx": 2,
+          "en": "\n\nThou must know that thy quest to become an Avatar is the endless quest of a lifetime.",
+          "zh": ""
+        },
+        {
+          "idx": 3,
+          "en": "\n\nAvatarhood is a living gift.  It must always and forever be nurtured to flourish.",
+          "zh": ""
+        },
+        {
+          "idx": 4,
+          "en": "\n\nFor if thou dost stray from the paths of virtue, thy way may be lost forever.",
+          "zh": ""
+        },
+        {
+          "idx": 5,
+          "en": "\n\nReturn now unto thine own world. Live there as an example to thy people, as our memory of thy gallant deeds serves us.",
+          "zh": ""
+        },
+        {
+          "idx": 6,
+          "en": "\n\nAs the sound of the voice trails off, darkness seems to rise around you. There is a moment of intense, wrenching vertigo.",
+          "zh": ""
+        }
+      ]
+    },
+    "endgame_text2": {
+      "source": "avatar.exe @ 0x10187",
+      "desc": "codex.cpp:45 結局文字 2",
+      "count": 5,
+      "entries": [
+        {
+          "idx": 0,
+          "en": "You open your eyes to a familiar circle of stones.  You wonder of your recent adventures.",
+          "zh": ""
+        },
+        {
+          "idx": 1,
+          "en": "\n\nIt seems a time and place very distant.  You wonder if it really happened. Then you realize that in your hand you hold The Ankh.",
+          "zh": ""
+        },
+        {
+          "idx": 2,
+          "en": "\n\nYou walk away from the circle, knowing that you can always return from whence you came, since you now know the secret of the gates.",
+          "zh": ""
+        },
+        {
+          "idx": 3,
+          "en": "\n\nCONGRATULATIONS!\n   Thou hast\n   completed\n   ULTIMA IV\n  Quest of the\n    AVATAR\n  in ",
+          "zh": ""
+        },
+        {
+          "idx": 4,
+          "en": "\n turns! Report\n thy feat unto\nLord British at\nOrigin Systems!",
+          "zh": ""
+        }
+      ]
+    },
+    "shrine_advice": {
+      "source": "avatar.exe @ 0x16df2",
+      "desc": "shrine.cpp:54 聖壇冥想建議",
+      "count": 24,
+      "entries": [
+        {
+          "idx": 0,
+          "en": "Take not the gold of others found in towns and castles for yours it is not!\n",
+          "zh": ""
+        },
+        {
+          "idx": 1,
+          "en": "Cheat not the merchants and peddlers for tis an evil thing to do!\n",
+          "zh": ""
+        },
+        {
+          "idx": 2,
+          "en": "Second, read the Book of Truth at the entrance to the Great Stygian Abyss!\n",
+          "zh": ""
+        },
+        {
+          "idx": 3,
+          "en": "Kill not the non-evil beasts of the land, and do not attack the fair people!\n",
+          "zh": ""
+        },
+        {
+          "idx": 4,
+          "en": "Give of thy purse to those who beg and thy deed shall not be forgotten!\n",
+          "zh": ""
+        },
+        {
+          "idx": 5,
+          "en": "Third, light the Candle of Love at the entrance to the Great Stygian Abyss!\n",
+          "zh": ""
+        },
+        {
+          "idx": 6,
+          "en": "Victories scored over evil creatures help to build a valorous soul!\n",
+          "zh": ""
+        },
+        {
+          "idx": 7,
+          "en": "To flee from battle with less than grievous wounds often shows a coward!\n",
+          "zh": ""
+        },
+        {
+          "idx": 8,
+          "en": "First, ring the Bell of Courage at the entrance to the Great Stygian Abyss!\n",
+          "zh": ""
+        },
+        {
+          "idx": 9,
+          "en": "To take the gold of others is injustice not soon forgotten. Take only thy due!\n",
+          "zh": ""
+        },
+        {
+          "idx": 10,
+          "en": "Attack not a peaceful citizen for that action deserves strict punishment!\n",
+          "zh": ""
+        },
+        {
+          "idx": 11,
+          "en": "Kill not a non-evil beast for they deserve not death, even if in hunger they attack thee!",
+          "zh": ""
+        },
+        {
+          "idx": 12,
+          "en": "To give thy last gold piece unto the needy shows good measure of self-sacrifice!\n",
+          "zh": ""
+        },
+        {
+          "idx": 13,
+          "en": "For thee to flee and leave thy companions is a self-serving action to be avoided!\n",
+          "zh": ""
+        },
+        {
+          "idx": 14,
+          "en": "To give of thy life's blood so that others may live is a virtue of great praise!\n",
+          "zh": ""
+        },
+        {
+          "idx": 15,
+          "en": "Take not the gold of others for this shall bring dishonor upon thee!\n",
+          "zh": ""
+        },
+        {
+          "idx": 16,
+          "en": "To strike first a non-evil being is by no means an honorable deed!\n",
+          "zh": ""
+        },
+        {
+          "idx": 17,
+          "en": "Seek ye to solve the many Quests before thee, and honor shall be a reward!\n",
+          "zh": ""
+        },
+        {
+          "idx": 18,
+          "en": "Seek ye to know thyself.  Visit the seer often for he can see into thy inner being!\n",
+          "zh": ""
+        },
+        {
+          "idx": 19,
+          "en": "Meditation leads to enlightenment Seek ye all Wisdom and Knowledge!\n",
+          "zh": ""
+        },
+        {
+          "idx": 20,
+          "en": "If thou dost seek the White Stone, search ye not under the ground, but in Serpent's Spine!\n",
+          "zh": ""
+        },
+        {
+          "idx": 21,
+          "en": "Claim not to be that which thou art not.  Humble actions speak well of thee!\n",
+          "zh": ""
+        },
+        {
+          "idx": 22,
+          "en": "Strive not to wield the Great Force of Evil for its power will overcome thee!\n",
+          "zh": ""
+        },
+        {
+          "idx": 23,
+          "en": "If thou dost seek the Black Stone, search ye at the Time and Place of the Gate on the darkest of all nights!\n",
+          "zh": ""
+        }
+      ]
+    }
+  }
+}

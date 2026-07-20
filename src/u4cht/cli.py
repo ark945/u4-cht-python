@@ -10,6 +10,7 @@ from pathlib import Path
 import click
 
 from . import __version__
+from .bootstrap import fetch_data as fetch_data_mod
 from .extract import hardcoded as hardcoded_extract
 from .extract import strings as strings_extract
 from .extract import tlk as tlk_extract
@@ -31,7 +32,75 @@ def info() -> None:
         "Phase 1 完成：extract-tlk ✅  extract-strings ✅  "
         "extract-hardcoded ✅  extract-vendor ✅"
     )
+    click.echo("Bootstrap：fetch-data ✅")
     click.echo("實作進度：docs/ai_planning/PLAN.md")
+
+
+@main.command("fetch-data")
+@click.option(
+    "--out",
+    "out_dir",
+    default=Path("data"),
+    show_default=True,
+    type=click.Path(file_okay=False, path_type=Path),
+    help="頂層輸出資料夾（將建立 downloads/ dos/ tlk/ xu4/ 子資料夾）。",
+)
+@click.option(
+    "--with-upgrade",
+    is_flag=True,
+    default=False,
+    help="額外下載 u4upgrad.zip（VGA 升級包，Phase 1 不需要）。",
+)
+@click.option(
+    "--with-xu4-src",
+    is_flag=True,
+    default=False,
+    help="額外下載 xu4 upstream 全樹（給 extract-hardcoded / extract-vendor 用）。",
+)
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="重下（刪掉舊 zip / tarball 快取）。",
+)
+def fetch_data_cmd(
+    out_dir: Path,
+    with_upgrade: bool,
+    with_xu4_src: bool,
+    force: bool,
+) -> None:
+    """下載 freeware Ultima IV DOS 資料檔到本地（供後續 extract-* 使用）。"""
+    import sys
+
+    result = fetch_data_mod.fetch_data(
+        out_dir=out_dir,
+        with_upgrade=with_upgrade,
+        with_xu4_src=with_xu4_src,
+        force=force,
+        log=sys.stdout,
+    )
+    click.echo("")
+    click.echo("== 完成 ==")
+    click.echo(f".TLK 解壓：{len(result.tlk_files)} / 16")
+    click.echo(f"DOS exe：{len(result.dos_files)} / 2 ({', '.join(result.dos_files)})")
+    if with_xu4_src:
+        click.echo(f"xu4 src：{result.xu4_src_files} 個 .cpp/.c/.h")
+        click.echo(f"vendors.b：{result.vendors_b_path if result.vendors_b_path else '（未找到）'}")
+    click.echo(f"ultima4.zip SHA-256: {result.ultima4_zip_sha256}")
+    click.echo("")
+    click.echo("下一步：")
+    click.echo(f"  u4cht extract-tlk     --tlk-dir  {out_dir / 'tlk'} --out out/talk.json")
+    click.echo(f"  u4cht extract-strings --data-dir {out_dir / 'dos'} --out out/strings.json")
+    if with_xu4_src and result.xu4_src_files > 0:
+        click.echo(
+            f"  u4cht extract-hardcoded --src-dir {out_dir / 'xu4' / 'src'} "
+            f"--out out/hardcoded.json"
+        )
+    if with_xu4_src and result.vendors_b_path is not None:
+        click.echo(
+            f"  u4cht extract-vendor  --file {result.vendors_b_path} "
+            f"--out out/vendor.json"
+        )
 
 
 @main.command("extract-tlk")
