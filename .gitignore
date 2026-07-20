@@ -35,8 +35,10 @@ htmlcov/
 Thumbs.db
 
 # Project-local
-data/                # 原始 U4 資料檔（版權，不入庫）
-out/                 # 工具產出的中介檔
+# 原始 U4 資料檔（freeware 但不入庫，避免 repo 肥大）
+data/
+# 工具產出的中介檔
+out/
 *.d64
 
 # Local scratch (never commit)
