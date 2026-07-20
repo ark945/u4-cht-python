@@ -236,6 +236,11 @@ def _make_synthetic_xu4_tarball(dst: Path) -> None:
         "u4-master/src/screen.h": b"int screen_x;\n",
         "u4-master/module/Ultima-IV/vendors.b": b'"welcome to shop"\n',
         "u4-master/module/Ultima-IV/README.txt": b"Ultima IV module\n",
+        # Build 系統檔（A1 emscripten build 需要）
+        "u4-master/Makefile": b"all:\n\techo top-level\n",
+        "u4-master/configure": b"#!/bin/sh\necho configuring\n",
+        "u4-master/src/Makefile": b"xu4:\n\techo build\n",
+        "u4-master/android/Android.mk": b"LOCAL_MODULE := xu4\n",
         # 應被過濾掉：非文字類
         "u4-master/module/Ultima-IV/tiles.png": b"\x89PNG binary",
         "u4-master/render.pak": b"binary blob",
@@ -255,7 +260,7 @@ def test_extract_xu4_tarball_filters_binary(tmp_path: Path) -> None:
     dest = tmp_path / "xu4"
     src_count, vendors_b = _extract_xu4_tarball(tar_path, dest, log=None)
 
-    # game.cpp + combat.cpp + screen.h = 3
+    # game.cpp + combat.cpp + screen.h = 3（src_count 只算 src/ 下的 .cpp/.c/.h）
     assert src_count == 3
     assert vendors_b is not None
     assert vendors_b == dest / "module" / "Ultima-IV" / "vendors.b"
@@ -265,6 +270,11 @@ def test_extract_xu4_tarball_filters_binary(tmp_path: Path) -> None:
     assert (dest / "src" / "game.cpp").exists()
     assert (dest / "src" / "screen.h").exists()
     assert (dest / "module" / "Ultima-IV" / "README.txt").exists()
+    # Build 系統檔（A1 需要）
+    assert (dest / "Makefile").exists()
+    assert (dest / "configure").exists()
+    assert (dest / "src" / "Makefile").exists()
+    assert (dest / "android" / "Android.mk").exists()
     # 非文字類被過濾
     assert not (dest / "module" / "Ultima-IV" / "tiles.png").exists()
     assert not (dest / "render.pak").exists()

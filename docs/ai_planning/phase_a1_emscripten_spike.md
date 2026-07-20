@@ -239,23 +239,49 @@ A1 通過即滿足 A2 的所有前置：
 
 ---
 
-## 9. 待決 Open Questions（阻擋啟動）
+## 9. 待決 Open Questions — **已全數解決 2026-07-20**
 
-| # | 問題 | 誰決 | 影響 |
+| # | 問題 | 答案 | 影響 |
 |---|---|---|---|
-| Q1 | 上游 patch 有沒有動 Allegro-specific 檔？ | AI grep 一下就知 | 決定 SDL 路線能否直接承接 patch |
-| Q2 | 開發平台：Windows 直跑 emsdk 還是走 WSL / docker？ | USER | 影響 M1 步驟 |
-| Q3 | Boron VM 是 submodule 還是 xu4 vendored？ | AI 看 tree 確認 | 決定 M2 build 順序 |
+| Q1 | 上游 patch 有沒有動 Allegro-specific 檔？ | **有，但也動了抽象層** | 詳見下 |
+| Q2 | 開發平台選哪個？ | **(c) Docker** (`emscripten/emsdk:latest`) | 對照 `../u4-cht/docker/Dockerfile.zh` 改寫 |
+| Q3 | Boron 是 submodule 還是 vendored？ | **外部依賴**，需獨立 clone + emcc build | M2 需獨立步驟 |
 
-**Q1 先解**（不用 USER 介入，我 grep 就知）
-**Q2 需 USER 回答**
-**Q3 我看一眼 tree 就知**
+### Q1 詳解
+
+`../u4-cht/patches/engine/cht-engine.patch` 動的檔案分兩類：
+
+**抽象層（backend-agnostic — SDL 自動吃到）**
+- `src/screen.cpp` — 中文字型 render 主邏輯
+- `src/textview.cpp` — 文字視窗
+- `src/tileanim.cpp`, `src/tileview.cpp` — tile 系統
+- `src/intro.cpp`, `src/imagemgr.cpp`, `src/gamebrowser.cpp`
+
+**Backend-specific（SDL 需自行移植）**
+- `src/event_allegro.cpp`, `src/screen_allegro.cpp`
+- `src/screen_glfw.cpp`, `src/screen_glv.cpp`
+- ⚠️ `src/screen_sdl.cpp` / `src/event_sdl.cpp` **沒對應 patch**
+
+**判斷**：SDL 路線可行。中文顯示核心在抽象層，會自動吃到 patch；backend-specific 部分應該只是 clip rectangle / DPI / cursor 這種膠水。A1 過程中 diff 比對 Allegro 版即可移植（估 100–200 行）。若 diff 出來發現改動巨大或深入 Allegro 內部 API，觸發 §5 kill switch F1。
+
+### Q3 詳解
+
+`data/xu4/src/` 底下沒有 `boron*` 目錄，對照 `../u4-cht/docker/Dockerfile.zh` 也是 `git clone https://github.com/wickedsmoke/boron.git` 才 build。
+
+**M2 具體步驟**（更新）：
+```bash
+# 在 emsdk container 內
+git clone https://github.com/wickedsmoke/boron.git /build/boron
+cd /build/boron
+emmake make  # 或 emmake ./configure && emmake make，看 boron 的 build 系統
+```
 
 ---
 
 ## 10. 立即下一步
 
-1. **[AI]** 解 §9 Q1（grep patch）+ Q3（看 xu4 tree）
-2. **[AI]** 補 §3 fetch-data 白名單（不影響已抓資料）
-3. **[USER]** 回 §9 Q2（Windows 直跑 / WSL / docker）
-4. **[AI]** 進 M1 環境驗證
+1. ~~[AI] 解 §9 Q1（grep patch）+ Q3（看 xu4 tree）~~ ✅ 完成 2026-07-20
+2. ~~[AI] 補 §3 fetch-data 白名單（不影響已抓資料）~~ ✅ 完成 2026-07-20
+3. ~~[USER] 回 §9 Q2（Windows 直跑 / WSL / docker）~~ ✅ **(c) Docker**
+4. **[USER] 啟動 Docker Desktop**（daemon 未開，`docker info` 目前 fail）
+5. **[AI] 進 M1**：`docker pull emscripten/emsdk:latest`、驗版本、跑 hello-world

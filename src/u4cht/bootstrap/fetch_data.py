@@ -152,13 +152,21 @@ def _extract_xu4_tarball(
 ) -> tuple[int, Path | None]:
     """把 xu4 tarball 解壓到 `dest`，剝掉 tar 內最外一層 `u4-master/` 目錄。
 
-    - 只保留 `src/*.cpp *.c *.h` 與 `module/**/*.b` `module/**/*.txt` 等文字檔
-      （跳過大型 binary 資產：.png .pak .wav .mp3 .mid 等；本工具鏈用不到）
-    - 回傳 `(src 檔案數, vendors.b 絕對路徑或 None)`
+    保留策略（Phase A1 emscripten build 需要）：
+
+    - 原始碼副檔名：`.cpp .c .h .hpp .cc`
+    - 資料/文字副檔名：`.b .txt .md`
+    - Build 系統副檔名：`.mk .pri .pro .qbs .cmake`
+    - Build 系統檔名（無副檔名或大寫）：`Makefile`, `configure`, `CMakeLists.txt`
+
+    跳過大型 binary 資產：.png .pak .wav .mp3 .mid 等；本工具鏈用不到。
+    回傳 `(src 檔案數, vendors.b 絕對路徑或 None)`。
     """
     dest.mkdir(parents=True, exist_ok=True)
 
     text_suffixes = {".cpp", ".c", ".h", ".hpp", ".cc", ".b", ".txt", ".md"}
+    build_suffixes = {".mk", ".pri", ".pro", ".qbs", ".cmake"}
+    build_names = {"Makefile", "configure", "CMakeLists.txt"}
     src_count = 0
     vendors_b: Path | None = None
 
@@ -171,8 +179,13 @@ def _extract_xu4_tarball(
             if len(parts) < 2:
                 continue
             rel = Path(*parts[1:])
-            # 過濾：只留純文字類（跳過大 binary）
-            if rel.suffix.lower() not in text_suffixes:
+            # 過濾：留純文字 + build 系統檔
+            suffix = rel.suffix.lower()
+            if (
+                suffix not in text_suffixes
+                and suffix not in build_suffixes
+                and rel.name not in build_names
+            ):
                 continue
 
             target = dest / rel
@@ -183,7 +196,7 @@ def _extract_xu4_tarball(
             with extracted, target.open("wb") as ofh:
                 shutil.copyfileobj(extracted, ofh, length=65536)
 
-            if rel.suffix.lower() in {".cpp", ".c", ".h", ".hpp", ".cc"} and parts[1] == "src":
+            if suffix in {".cpp", ".c", ".h", ".hpp", ".cc"} and parts[1] == "src":
                 src_count += 1
             if rel.name == "vendors.b" and "Ultima-IV" in rel.parts:
                 vendors_b = target
@@ -283,7 +296,7 @@ def fetch_data(
             downloaded.append("xu4-master.tar.gz")
         xu4_tarball_sha = _sha256_file(xu4_tarball)
         if log is not None:
-            print("  [.. ] 解壓 xu4 全樹（僅 .cpp/.c/.h/.b/.txt）", file=log)
+            print("  [.. ] 解壓 xu4 全樹（原始碼 + build 系統，跳過大 binary）", file=log)
         src_count, vendors_b = _extract_xu4_tarball(xu4_tarball, xu4_dir, log=log)
 
     return FetchResult(
