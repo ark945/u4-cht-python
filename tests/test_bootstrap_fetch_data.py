@@ -240,10 +240,14 @@ def _make_synthetic_xu4_tarball(dst: Path) -> None:
         "u4-master/Makefile": b"all:\n\techo top-level\n",
         "u4-master/configure": b"#!/bin/sh\necho configuring\n",
         "u4-master/src/Makefile": b"xu4:\n\techo build\n",
+        "u4-master/src/Makefile.common": b"CXXSRCS = game.cpp\n",  # deny-list 應留
         "u4-master/android/Android.mk": b"LOCAL_MODULE := xu4\n",
-        # 應被過濾掉：非文字類
+        "u4-master/android/setup.sh": b"#!/bin/sh\necho android\n",  # .sh 該留
+        "u4-master/module/render/shader/world.glsl": b"void main() {}\n",
+        # 應被過濾掉（deny-list 上的 binary 副檔名）
         "u4-master/module/Ultima-IV/tiles.png": b"\x89PNG binary",
-        "u4-master/render.pak": b"binary blob",
+        "u4-master/module/Ultima-IV/sound/cannon.rfx": b"\x00rfx binary",
+        "u4-master/module/render/shader/gui.png": b"\x89PNG binary",
     }
     with tarfile.open(dst, "w:gz") as tf:
         for name, payload in entries.items():
@@ -274,10 +278,14 @@ def test_extract_xu4_tarball_filters_binary(tmp_path: Path) -> None:
     assert (dest / "Makefile").exists()
     assert (dest / "configure").exists()
     assert (dest / "src" / "Makefile").exists()
+    assert (dest / "src" / "Makefile.common").exists()  # deny-list 該留
     assert (dest / "android" / "Android.mk").exists()
-    # 非文字類被過濾
+    assert (dest / "android" / "setup.sh").exists()  # .sh 該留
+    assert (dest / "module" / "render" / "shader" / "world.glsl").exists()  # .glsl 該留
+    # Binary 該濾掉
     assert not (dest / "module" / "Ultima-IV" / "tiles.png").exists()
-    assert not (dest / "render.pak").exists()
+    assert not (dest / "module" / "Ultima-IV" / "sound" / "cannon.rfx").exists()
+    assert not (dest / "module" / "render" / "shader" / "gui.png").exists()
 
 
 def test_extract_xu4_tarball_missing_vendors_b(tmp_path: Path) -> None:

@@ -52,6 +52,17 @@ export PATH="$SHIM:$PATH"
 # 4. Build 只需要 libboron.a
 make libboron.a
 
+# 4b. 佈置 install layout：xu4 include 用 <boron/urlan.h>，把 headers 搬到
+#     /w/boron-install/include/boron/ 讓下游 -I/w/boron-install/include 通
+INSTALL_ROOT="/w/boron-install"
+rm -rf "$INSTALL_ROOT"
+mkdir -p "$INSTALL_ROOT/include/boron" "$INSTALL_ROOT/lib"
+cp include/*.h "$INSTALL_ROOT/include/boron/"
+cp libboron.a "$INSTALL_ROOT/lib/"
+echo "Install layout ready:"
+ls "$INSTALL_ROOT/include/boron/" | head -5
+ls "$INSTALL_ROOT/lib/"
+
 # 5. 驗證產出的 .o 是 WASM 不是 ELF
 ar x libboron.a env.o
 magic_hex=$(od -An -tx1 -N 4 env.o | tr -d ' \n')

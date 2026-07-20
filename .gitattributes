@@ -1,0 +1,15 @@
+# 預設所有文字檔用 LF checkout（避免 Windows CRLF 弄壞 Docker/Unix 腳本）
+* text=auto eol=lf
+
+# 二進位檔標記（避免 line-ending 轉換）
+*.png binary
+*.wav binary
+*.mp3 binary
+*.mid binary
+*.exe binary
+*.TLK binary
+*.tab binary
+*.bin binary
+*.tar.gz binary
+*.zip binary
+*.d64 binary

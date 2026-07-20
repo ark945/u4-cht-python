@@ -152,21 +152,24 @@ def _extract_xu4_tarball(
 ) -> tuple[int, Path | None]:
     """把 xu4 tarball 解壓到 `dest`，剝掉 tar 內最外一層 `u4-master/` 目錄。
 
-    保留策略（Phase A1 emscripten build 需要）：
+    採 **deny-list** 策略：跳過已知大型 binary 副檔名（module 資產 / 圖磚 /
+    音樂），其餘全部解壓。這讓 A1/A2 emscripten build 能拿到全部原始碼、
+    build 系統檔（Makefile.common / .sh / .glsl 等）而不用每次追加白名單。
 
-    - 原始碼副檔名：`.cpp .c .h .hpp .cc`
-    - 資料/文字副檔名：`.b .txt .md`
-    - Build 系統副檔名：`.mk .pri .pro .qbs .cmake`
-    - Build 系統檔名（無副檔名或大寫）：`Makefile`, `configure`, `CMakeLists.txt`
-
-    跳過大型 binary 資產：.png .pak .wav .mp3 .mid 等；本工具鏈用不到。
-    回傳 `(src 檔案數, vendors.b 絕對路徑或 None)`。
+    回傳 `(src 檔案數, vendors.b 絕對路徑或 None)`；
+    `src 檔案數` 只算 `src/*.cpp`, `src/*.c`, `src/*.h`（不遞迴）。
     """
     dest.mkdir(parents=True, exist_ok=True)
 
-    text_suffixes = {".cpp", ".c", ".h", ".hpp", ".cc", ".b", ".txt", ".md"}
-    build_suffixes = {".mk", ".pri", ".pro", ".qbs", ".cmake"}
-    build_names = {"Makefile", "configure", "CMakeLists.txt"}
+    # 明確跳過的 binary 副檔名：module assets、rich media
+    skip_suffixes = {
+        ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".ico", ".icns",
+        ".wav", ".mp3", ".mid", ".ogg", ".flac",
+        ".pak", ".zip", ".tar", ".gz", ".7z",
+        ".rfx",           # xu4 音效格式（binary）
+        ".ttf", ".woff", ".woff2", ".otf",
+        ".jar", ".apk", ".class",
+    }
     src_count = 0
     vendors_b: Path | None = None
 
@@ -179,13 +182,8 @@ def _extract_xu4_tarball(
             if len(parts) < 2:
                 continue
             rel = Path(*parts[1:])
-            # 過濾：留純文字 + build 系統檔
-            suffix = rel.suffix.lower()
-            if (
-                suffix not in text_suffixes
-                and suffix not in build_suffixes
-                and rel.name not in build_names
-            ):
+            # 過濾：拒絕已知 binary 副檔名，其餘全留
+            if rel.suffix.lower() in skip_suffixes:
                 continue
 
             target = dest / rel
@@ -196,7 +194,10 @@ def _extract_xu4_tarball(
             with extracted, target.open("wb") as ofh:
                 shutil.copyfileobj(extracted, ofh, length=65536)
 
-            if suffix in {".cpp", ".c", ".h", ".hpp", ".cc"} and parts[1] == "src":
+            if (
+                rel.suffix.lower() in {".cpp", ".c", ".h", ".hpp", ".cc"}
+                and parts[1] == "src"
+            ):
                 src_count += 1
             if rel.name == "vendors.b" and "Ultima-IV" in rel.parts:
                 vendors_b = target
