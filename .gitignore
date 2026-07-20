@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project-local
+data/                # 原始 U4 資料檔（版權，不入庫）
+out/                 # 工具產出的中介檔
+*.d64
+*.crt
+*.mod
+ultima4.zip
+u4upgrad.zip
+
+# Large binary artefacts symlinked from ../u4-cht
+# （允許輕量 lookup 表入庫，但不放整包 atlas）
+assets/*.bin
+!assets/.gitkeep
