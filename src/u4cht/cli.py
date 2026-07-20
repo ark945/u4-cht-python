@@ -10,6 +10,7 @@ from pathlib import Path
 import click
 
 from . import __version__
+from .extract import hardcoded as hardcoded_extract
 from .extract import strings as strings_extract
 from .extract import tlk as tlk_extract
 
@@ -25,7 +26,7 @@ def info() -> None:
     """列出目前實作進度。"""
     click.echo(f"u4cht {__version__}")
     click.echo("Phase 0 骨架 ✅")
-    click.echo("Phase 1 進行中：extract-tlk ✅  extract-strings ✅")
+    click.echo("Phase 1 進行中：extract-tlk ✅  extract-strings ✅  extract-hardcoded ✅")
     click.echo("實作進度：docs/ai_planning/PLAN.md")
 
 
@@ -122,9 +123,53 @@ def extract_strings(
         click.echo(f"→ {out_report}")
 
 
+@main.command("extract-hardcoded")
+@click.option(
+    "--src-dir",
+    "src_dir",
+    required=True,
+    type=click.Path(exists=True, file_okay=False, path_type=Path),
+    help="xu4 C/C++ 原始碼資料夾（會遞迴掃 .cpp/.c/.h）。",
+)
+@click.option(
+    "--out",
+    "out_json",
+    required=True,
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="輸出雙語 JSON 路徑。",
+)
+@click.option(
+    "--report",
+    "out_report",
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="（選填）Markdown 報告輸出路徑。",
+)
+def extract_hardcoded(
+    src_dir: Path,
+    out_json: Path,
+    out_report: Path | None,
+) -> None:
+    """靜態抽取 xu4 原始碼中 `screenMessage()` 系列字面字串為雙語 JSON。"""
+    payload = hardcoded_extract.run_extract(
+        src_dir=src_dir,
+        out_json=out_json,
+        report=out_report,
+    )
+    meta = payload["_meta"]
+    click.echo(
+        f"call site(字面): {meta['total_call_sites_with_literal']}  "
+        f"唯一: {meta['unique_strings']}  "
+        f"含 format: {meta['with_format_specifier']}  "
+        f"dynamic: {meta['dynamic_first_arg']}"
+    )
+    click.echo(f"→ {out_json}")
+    if out_report is not None:
+        click.echo(f"→ {out_report}")
+
+
 # 尚未實作的子指令（僅列於此供追蹤，見 PLAN §3 對照表）：
 # 共用（Phase 1–3）:
-#   extract-hardcoded / extract-vendor
+#   extract-vendor
 #   build-font / build-lookup
 #   platform fmtowns|msx2|amiga|x68000|sms
 # 軌 A（Phase A1+）:
