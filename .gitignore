@@ -38,6 +38,11 @@ Thumbs.db
 data/                # 原始 U4 資料檔（版權，不入庫）
 out/                 # 工具產出的中介檔
 *.d64
+
+# Local scratch (never commit)
+.git-commit-msg.tmp
+*.tmp
+
 *.crt
 *.mod
 ultima4.zip
