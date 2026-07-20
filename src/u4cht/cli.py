@@ -13,6 +13,7 @@ from . import __version__
 from .extract import hardcoded as hardcoded_extract
 from .extract import strings as strings_extract
 from .extract import tlk as tlk_extract
+from .extract import vendor as vendor_extract
 
 
 @click.group(help="Ultima IV 繁中在地化 — Python 工具鏈")
@@ -26,7 +27,10 @@ def info() -> None:
     """列出目前實作進度。"""
     click.echo(f"u4cht {__version__}")
     click.echo("Phase 0 骨架 ✅")
-    click.echo("Phase 1 進行中：extract-tlk ✅  extract-strings ✅  extract-hardcoded ✅")
+    click.echo(
+        "Phase 1 完成：extract-tlk ✅  extract-strings ✅  "
+        "extract-hardcoded ✅  extract-vendor ✅"
+    )
     click.echo("實作進度：docs/ai_planning/PLAN.md")
 
 
@@ -167,9 +171,53 @@ def extract_hardcoded(
         click.echo(f"→ {out_report}")
 
 
+@main.command("extract-vendor")
+@click.option(
+    "--file",
+    "files",
+    required=True,
+    multiple=True,
+    type=click.Path(exists=True, dir_okay=False, path_type=Path),
+    help="Boron 模組檔案（如 `vendors.b`）；可指定多次。",
+)
+@click.option(
+    "--out",
+    "out_json",
+    required=True,
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="輸出雙語 JSON 路徑。",
+)
+@click.option(
+    "--report",
+    "out_report",
+    type=click.Path(dir_okay=False, path_type=Path),
+    help="（選填）Markdown 報告輸出路徑。",
+)
+def extract_vendor(
+    files: tuple[Path, ...],
+    out_json: Path,
+    out_report: Path | None,
+) -> None:
+    """文字抽取 xu4 Boron 腳本（如 `vendors.b`）字面為雙語 JSON。"""
+    payload = vendor_extract.run_extract(
+        files=list(files),
+        out_json=out_json,
+        report=out_report,
+    )
+    meta = payload["_meta"]
+    click.echo(
+        f"raw 字面: {meta['raw_literals']}  "
+        f"control: {meta['control_skipped']}  "
+        f"唯一真文字: {meta['unique_text_strings']}  "
+        f"含佔位: {meta['with_placeholder']}"
+    )
+    click.echo(f"→ {out_json}")
+    if out_report is not None:
+        click.echo(f"→ {out_report}")
+
+
 # 尚未實作的子指令（僅列於此供追蹤，見 PLAN §3 對照表）：
-# 共用（Phase 1–3）:
-#   extract-vendor
+# 共用（Phase 2–3）:
 #   build-font / build-lookup
 #   platform fmtowns|msx2|amiga|x68000|sms
 # 軌 A（Phase A1+）:
